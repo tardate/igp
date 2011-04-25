@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+require 'igp'
+require 'getoptions'
+
+begin
+  options = GetOptions.new(Igp::Shell::OPTIONS)
+  Igp::Shell.new(options,ARGV).run
+rescue Interrupt
+  $stderr.puts ""
+rescue Exception => e
+  $stderr.puts "That wasn't meant to happen! #{e.message}"
+  Igp::Shell.usage
+end
+

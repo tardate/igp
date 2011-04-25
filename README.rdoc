@@ -1,0 +1,88 @@
+= igp ... It goes PING!
+
+igp arrived as an idea to have a simple commmand line utility for testing services supporting a range of common protocols: TCP, HTTP/S, LDAP/S and so on.
+This is nothing new, but in the past -- when testing a new load balancer for example -- I always reached for a bunch of trusty (and rusty) shell scripts.
+Wouldn't it be nice if there was a simple tool that had no other dependency than ruby?
+
+Thankfully, most of the work has already been done by the {net-ping library}[https://github.com/djberg96/net-ping].
+igp just provides a nice command-line wrapper.
+
+== How to use it
+
+Install:
+
+  gem install igp
+
+Then you are ready to go. To test some common protocols, just provide a suitable URI.
+Protocols currently supported are: icmp, http, https, ldap, ldaps, tcp, udp.
+If you don't specify a port in the URI, the default well-known port will be assumed if possible
+e.g. port 80 for HTTP.
+
+  igp my.server.com
+  #   ^ ICMP assumed by default. This is the same as:
+  igp icmp://my.server.com
+
+  igp http://my.insecure.server.com
+  igp http://my.insecure.server-hiding-on-a-funny-port.com:8080/javascripts/all.js
+
+  igp https://my.secure.server.com
+  igp https://my.secure.server-hiding-on-a-funny-port.com:4443
+
+  igp tcp://my.tcp-service.com:9091
+  igp udp://my.tcp-service.com:123
+
+  igp ldap://my.insecure.ldap.server.com
+  igp ldaps://my.secure.ldap.server.com
+
+Of course, you can use IP addresses too:
+
+  igp tcp://127.0.0.1:22
+  
+== Command-line Options
+
+=== Interval
+The default interval between pings is 5 seconds. You can change this with the -i or --interval parameter.
+
+  # set the ping interval to 10 seconds. Note that '=' is optional
+  igp my.server.com -i 10
+  igp my.server.com --interval=10
+
+=== Limit
++igp+ will ping to the end of time if you let it. To limit the number of ping tests, use the -l or --limit parameter.
+
+  # I only want to ping 5 times..
+  igp my.server.com -l 5
+  igp my.server.com --limit=5
+
+
+== Output format
+Any messages or warnings are sent to stderr. Actual ping results are written to stdout.
+
+Ping results are written as a comma-separated record with 4 components:
+* time of the ping test (UTC/GMT in ISO 8601 / RFC 3339 format)
+* test success true/false
+* ping duration in seconds (if the test was a success)
+* error or exception code (if any)
+
+  # a 'good' ping example:
+  2011-05-07T03:34:08.078Z,true,0.006508,
+  # a 'bad' ping example:
+  2011-05-07T03:31:17.173Z,false,,ping: cannot resolve my.server.com: Unknown host
+
+
+== Contributing to igp
+You're welcome to fork/borrow/copy the source. If you come up with any improvements though, I welcome your contributions back even more.
+
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+== Copyright
+
+Copyright (c) 2011 Paul Gallagher. See LICENSE.txt for
+further details.
+
