@@ -64,6 +64,8 @@ Ping results are written as a comma-separated record with 4 components:
 * ping duration in seconds (if the test was a success)
 * error or exception code (if any)
 
+Examples:
+
   # a 'good' ping example:
   2011-05-07T03:34:08.078Z,true,0.006508,
   # a 'bad' ping example:
