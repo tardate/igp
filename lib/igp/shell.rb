@@ -18,7 +18,7 @@ class Igp::Shell
     defaults = {
       :interval => 1
     }
-    @options = defaults.merge( (options||{}).each{|k|k} )
+    @options = defaults.merge( (options||{}).each{|k,v| {k => v} } )
     return unless args.first
     resolve_addressing args.first
     normalise_options
