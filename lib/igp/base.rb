@@ -1,7 +1,10 @@
+# main class that runs the ping task
 class Igp::Base
 
   # holds the parsed options
   attr_reader :options
+  # the output formatter
+  attr_reader :formatter
   # the Net::Ping handler for the specific protocol required
   attr_reader :ping_handler
   # number of pings to perform (nil => infinite)
@@ -18,6 +21,7 @@ class Igp::Base
   #  :port => optionally specify the port for host (else default port is assumed)
   #
   def initialize(options = {})
+    @formatter = Format.new
     @options = options
     @limit = options[:limit]
     @interval = options[:interval] || 5
@@ -37,31 +41,44 @@ class Igp::Base
 
   # main routine to run a complete ping test
   def run
-    return unless ping_handler
-    header
+    return unless ping_handler && formatter
+    formatter.header(
+      '# It goes PING! .. testing',options[:url],
+      (limit ? "#{limit} times - once" : nil),
+      'every',interval,'seconds'
+    )
     ping_count=0
     while (limit.nil? || ping_count < limit) do
       status = ping_handler.ping?
-      log status,ping_handler.duration,ping_handler.exception
+      formatter.log(status,formatter.duration(ping_handler.duration),ping_handler.exception)
       ping_count += 1
       sleep interval if (limit.nil? || ping_count < limit)
     end
   end
 
-  protected
+  # handle output formating tasks
+  class Format
 
-  # prints the header structure to STDERR
-  def header
-    $stderr.puts [
-      '# It goes PING! .. testing',options[:url],
-      (limit ? "#{limit} times - once" : nil),'every',interval,'seconds'
-    ].compact.join(' ')
+    # the time format - in 1.8 strftime doesn't understand milliseconds
+    TIME_FORMAT = (RUBY_VERSION =~ /^1\.9/) ? "%Y-%m-%dT%H:%M:%S.%LZ" : "%Y-%m-%dT%H:%M:%SZ"
+
+    # prints the header structure to STDERR
+    def header(*args)
+      $stderr.puts(args.compact.join(' '))
+    end
+      
+    # logs ping result to STDOUT
+    # +args+ is an array of values to log
+    def log(*args)
+      $stdout.puts(([Time.now.utc.strftime( TIME_FORMAT )] + args).join(','))
+      $stdout.flush
+    end
+    
+    # formats the duration for output. nil duration remains nil
+    def duration(duration)
+      "%.6f" % duration if duration
+    end
+
   end
 
-  # logs ping result to STDOUT
-  # +args+ is an array of values to log
-  def log(*args)
-    $stdout.puts(([Time.now.utc.strftime( "%Y-%m-%dT%H:%M:%S.%LZ" )] + args).join(','))
-    $stdout.flush
-  end
 end

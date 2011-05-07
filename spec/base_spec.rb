@@ -4,17 +4,14 @@ require 'getoptions'
 describe Igp::Base do
 
   describe "base initialization without options" do
-    before do
-      @base = Igp::Base.new
-    end
     it "should not set ping_handler" do
-      @base.ping_handler.should be_nil
+      subject.ping_handler.should be_nil
     end
     it "should not set limit" do
-      @base.limit.should be_nil
+      subject.limit.should be_nil
     end
     it "should default interval to 5 sec" do
-      @base.interval.should eql(5)
+      subject.interval.should eql(5)
     end
   end
   
@@ -22,7 +19,7 @@ describe Igp::Base do
     it "should be Net::Ping::External for :icmp" do
       options = { :type => :icmp, :host => 'localhost', :port => nil}
       base = Igp::Base.new(options)
-      base.ping_handler.class.should eql(Net::Ping::External)
+      base.ping_handler.should be_a(Net::Ping::External)
     end
     it "should be Net::Ping::UDP for :tcp" do
       options = { :type => :udp, :host => 'localhost', :port => 22}
@@ -56,4 +53,14 @@ describe Igp::Base do
     end
   end
 
+  describe "#run" do
+    before do
+      @good = Igp::Base.new({ :type => :icmp, :host => 'localhost', :port => nil, :limit => 1})
+    end
+    it "should print header and log a ping result" do
+      @good.formatter.should_receive(:header)
+      @good.formatter.should_receive(:log)
+      capture(:stdout,:stderr){ @good.run }
+    end
+  end
 end

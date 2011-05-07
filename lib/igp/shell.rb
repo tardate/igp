@@ -1,4 +1,6 @@
 require 'uri'
+
+# class that groks the igp command line options and invokes the ping task
 class Igp::Shell
 
   # holds the parsed options
