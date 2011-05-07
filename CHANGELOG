@@ -1,0 +1,4 @@
+Version 0.0.1                Release: 7th May 2011
+==================================================
+* Initial packaging and release
+* Currently supports: icmp, http, https, ldap, ldaps, tcp, udp

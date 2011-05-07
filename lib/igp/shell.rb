@@ -6,6 +6,12 @@ class Igp::Shell
   # holds the URI object representing the ping target
   attr_reader :uri
 
+  # initializes the shell with command line argments:
+  #
+  # +options+ is expected to be the hash structure as provided by GetOptions.new(..)
+  #
+  # +args+ is the remaining command line arguments
+  #
   def initialize(options,args)
     defaults = {
       :interval => 1
@@ -15,6 +21,8 @@ class Igp::Shell
     resolve_addressing args.first
     normalise_options
   end
+
+  protected
 
   # decodes the +host+ string to type, host, port and sets the uri
   def resolve_addressing(host)
@@ -37,6 +45,9 @@ class Igp::Shell
     @options[:limit] = @options[:limit].to_i if @options[:limit]
   end
 
+  public
+
+  # runs the ping task
   def run
     case options[:type]
     when :icmp,:http,:https,:tcp,:udp,:ldap,:ldaps
@@ -53,6 +64,7 @@ class Igp::Shell
   def usage
     self.class.usage
   end
+  # prints usage/help information
   def self.usage
     $stderr.puts <<-EOS
 
