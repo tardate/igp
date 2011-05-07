@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{igp}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paul Gallagher"]
   s.date = %q{2011-05-07}
-  s.description = %q{command line interface for running longitudinal monitoring for various protocols: HTTP, HTTPS, ICMP and more}
+  s.description = %q{It goes PING! .. simple command-line server monitoring with a range of protocols: ICMP, TCP, UDP, HTTP/S, LDAP/S}
   s.email = %q{gallagher.paul@gmail.com}
   s.executables = ["igp"]
   s.extra_rdoc_files = [
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
     "lib/igp/shell.rb",
     "lib/igp/version.rb",
     "spec/base_spec.rb",
+    "spec/format_spec.rb",
     "spec/shell_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -42,6 +43,7 @@ Gem::Specification.new do |s|
   s.summary = %q{It goes PING!}
   s.test_files = [
     "spec/base_spec.rb",
+    "spec/format_spec.rb",
     "spec/shell_spec.rb",
     "spec/spec_helper.rb"
   ]

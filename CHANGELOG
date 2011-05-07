@@ -1,3 +1,9 @@
+Version 0.0.2                Release: 7th May 2011
+==================================================
+* properly handle time format in 1.8 and 1.9 ruby
+  the things we forget - 1.8 didn't have strftime milliseconds format option
+* refactor output formatting to make it more testable
+
 Version 0.0.1                Release: 7th May 2011
 ==================================================
 * Initial packaging and release
