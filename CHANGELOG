@@ -1,3 +1,10 @@
+Version 0.0.3                Release: 7th May 2011
+==================================================
+* more ruby 1.8.7 compatibility fixes:
+  - suppress net-ping error on ^C
+  - requires rubygems (allows bin/igp to run when not already installed as a gem)
+  - don't lazy-evaluate GetOptions hash values
+
 Version 0.0.2                Release: 7th May 2011
 ==================================================
 * properly handle time format in 1.8 and 1.9 ruby
