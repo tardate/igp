@@ -1,3 +1,14 @@
+Version 1.1.0                  Release: 2022-03-01
+==================================================
+
+* added back LDAP ping functionality (built-in for now)
+
+Version 1.0.0                  Release: 2022-03-01
+==================================================
+
+* updated to ruby 2.7+ and net-ping 2.0.8+
+* LDAP functionality removed (since dropped from net-ping)
+
 Version 0.0.3                Release: 7th May 2011
 ==================================================
 * more ruby 1.8.7 compatibility fixes:
