@@ -6,11 +6,10 @@ require 'getoptions'
 
 begin
   options = GetOptions.new(Igp::Shell::OPTIONS)
-  Igp::Shell.new(options,ARGV).run
-rescue Interrupt,NoMethodError
-  $stderr.puts ""
+  Igp::Shell.new(options, ARGV).run
+rescue Interrupt, NoMethodError
+  $stderr.puts ''
 rescue Exception => e
   $stderr.puts "That wasn't meant to happen! #{e.message}"
   Igp::Shell.usage
 end
-

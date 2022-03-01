@@ -1,49 +1,18 @@
-require 'rubygems'
-require 'bundler'
-begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
-require 'rake'
-$LOAD_PATH << './lib'
-require 'igp'
-
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-    gem.name = "igp"
-    gem.version = Igp::VERSION
-    gem.homepage = "http://github.com/tardate/igp"
-    gem.license = "MIT"
-    gem.summary = %Q{It goes PING!}
-    gem.description = %Q{It goes PING! .. simple command-line server monitoring with a range of protocols: ICMP, TCP, UDP, HTTP/S, LDAP/S}
-    gem.email = "gallagher.paul@gmail.com"
-    gem.authors = ["Paul Gallagher"]
-  end
-  Jeweler::RubygemsDotOrgTasks.new
-rescue LoadError
-  puts "Jeweler not available. Install it with: sudo gem install jeweler"
-end
-
-
-require 'rspec'
+require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new do |t|
-  t.rspec_opts = ["-c", "-f progress"]
-  t.pattern = 'spec/**/*_spec.rb'
+
+RSpec::Core::RakeTask.new(:spec)
+
+task default: :spec
+
+desc 'Open an irb session preloaded with this library'
+task :console do
+  sh 'irb -rubygems -I lib -r cancannible.rb'
 end
 
+require 'rdoc/task'
 
-task :default  => :spec
-
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "igp #{Igp::VERSION}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+RDoc::Task.new do |rdoc|
+  rdoc.main = 'README.rdoc'
+  rdoc.rdoc_files.include('README.rdoc', 'lib   /*.rb')
 end
