@@ -117,43 +117,44 @@ describe Igp::Shell do
     end
   end
 
-  describe 'ldap configuration' do
-    before(:each) do
-      @type = :ldap
-      @host = 'localhost'
-      @port = 389
-      @options_server_value = "#{@type}://#{@host}"
-      @shell = Igp::Shell.new(GetOptions.new(Igp::Shell::OPTIONS, []), [@options_server_value])
-    end
-    it 'should support url accessor' do
-      expect(@shell.options[:url]).to eql(@options_server_value)
-    end
-    it 'should default to tcp ping with url when given server with tcp protocol setting' do
-      expect(@shell.options[:type]).to eql(@type)
-    end
-    it 'should resolve host/port' do
-      expect(@shell.options[:host]).to eql(@host)
-      expect(@shell.options[:port]).to eql(@port)
-    end
-  end
+  # TODO: LDAP was retired from net-ping. to add back in one way or another
+  # describe 'ldap configuration' do
+  #   before(:each) do
+  #     @type = :ldap
+  #     @host = 'localhost'
+  #     @port = 389
+  #     @options_server_value = "#{@type}://#{@host}"
+  #     @shell = Igp::Shell.new(GetOptions.new(Igp::Shell::OPTIONS, []), [@options_server_value])
+  #   end
+  #   it 'should support url accessor' do
+  #     expect(@shell.options[:url]).to eql(@options_server_value)
+  #   end
+  #   it 'should default to tcp ping with url when given server with tcp protocol setting' do
+  #     expect(@shell.options[:type]).to eql(@type)
+  #   end
+  #   it 'should resolve host/port' do
+  #     expect(@shell.options[:host]).to eql(@host)
+  #     expect(@shell.options[:port]).to eql(@port)
+  #   end
+  # end
 
-  describe 'ldaps configuration' do
-    before(:each) do
-      @type = :ldaps
-      @host = 'localhost'
-      @port = 636
-      @options_server_value = "#{@type}://#{@host}"
-      @shell = Igp::Shell.new(GetOptions.new(Igp::Shell::OPTIONS, []), [@options_server_value])
-    end
-    it 'should support url accessor' do
-      expect(@shell.options[:url]).to eql(@options_server_value)
-    end
-    it 'should default to tcp ping with url when given server with tcp protocol setting' do
-      expect(@shell.options[:type]).to eql(@type)
-    end
-    it 'should resolve host/port' do
-      expect(@shell.options[:host]).to eql(@host)
-      expect(@shell.options[:port]).to eql(@port)
-    end
-  end
+  # describe 'ldaps configuration' do
+  #   before(:each) do
+  #     @type = :ldaps
+  #     @host = 'localhost'
+  #     @port = 636
+  #     @options_server_value = "#{@type}://#{@host}"
+  #     @shell = Igp::Shell.new(GetOptions.new(Igp::Shell::OPTIONS, []), [@options_server_value])
+  #   end
+  #   it 'should support url accessor' do
+  #     expect(@shell.options[:url]).to eql(@options_server_value)
+  #   end
+  #   it 'should default to tcp ping with url when given server with tcp protocol setting' do
+  #     expect(@shell.options[:type]).to eql(@type)
+  #   end
+  #   it 'should resolve host/port' do
+  #     expect(@shell.options[:host]).to eql(@host)
+  #     expect(@shell.options[:port]).to eql(@port)
+  #   end
+  # end
 end

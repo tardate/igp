@@ -52,7 +52,8 @@ class Igp::Shell
   # runs the ping task
   def run
     case options[:type]
-    when :icmp, :http, :https, :tcp, :udp, :ldap, :ldaps
+    # TODO: LDAP was retired from net-ping. to add back in one way or another
+    when :icmp, :http, :https, :tcp, :udp # :ldap, :ldaps
       Igp::Base.new(options).run
     else
       usage
@@ -100,10 +101,10 @@ class Igp::Shell
           igp http://localhost:8080
           igp https://localhost:4443
 
-        LDAP/S ping:
-          igp ldap://localhost
-          igp ldaps://localhost:6636
-
     EOS
+    # TODO: LDAP was retired from net-ping. to add back in one way or another
+    # LDAP/S ping:
+    #   igp ldap://localhost
+    #   igp ldaps://localhost:6636
   end
 end

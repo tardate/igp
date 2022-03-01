@@ -3,6 +3,10 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   NewCops: enable
 
+Layout/CommentIndentation:
+  Exclude:
+    - 'lib/igp/base.rb'
+
 # Offense count: 1
 # Configuration parameters: CheckForMethodsWithNoSideEffects.
 Lint/Void:

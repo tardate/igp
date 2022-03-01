@@ -33,8 +33,9 @@ class Igp::Base
       @ping_handler = Net::Ping::TCP.new(@options[:host], @options[:port])
     when :http, :https
       @ping_handler = Net::Ping::HTTP.new(@options[:url])
-    when :ldap, :ldaps
-      @ping_handler = Net::Ping::LDAP.new(@options[:url])
+    # TODO: LDAP was retired from net-ping. to add back in one way or another
+    # when :ldap, :ldaps
+    #   @ping_handler = Net::Ping::LDAP.new(@options[:url])
     end
   end
 
