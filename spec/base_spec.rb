@@ -40,17 +40,16 @@ describe Igp::Base do
       base = Igp::Base.new(options)
       expect(base.ping_handler).to be_a(Net::Ping::HTTP)
     end
-    # TODO: LDAP was retired from net-ping. to add back in one way or another
-    # it 'should be Net::Ping::LDAP for :ldap' do
-    #   options = { type: :ldap, url: 'ldap://localhost' }
-    #   base = Igp::Base.new(options)
-    #   expect(base.ping_handler).to be_a(Net::Ping::LDAP)
-    # end
-    # it 'should be Net::Ping::LDAP for :ldaps' do
-    #   options = { type: :ldaps, url: 'ldaps://localhost' }
-    #   base = Igp::Base.new(options)
-    #   expect(base.ping_handler).to be_a(Net::Ping::LDAP)
-    # end
+    it 'should be Net::Ping::LDAP for :ldap' do
+      options = { type: :ldap, url: 'ldap://localhost' }
+      base = Igp::Base.new(options)
+      expect(base.ping_handler).to be_a(Net::Ping::LDAP)
+    end
+    it 'should be Net::Ping::LDAP for :ldaps' do
+      options = { type: :ldaps, url: 'ldaps://localhost' }
+      base = Igp::Base.new(options)
+      expect(base.ping_handler).to be_a(Net::Ping::LDAP)
+    end
   end
 
   describe '#run' do

@@ -1,4 +1,5 @@
 require 'net/ping'
+require 'net/ping/ldap'
 require 'igp/version'
 require 'igp/shell'
 require 'igp/base'
